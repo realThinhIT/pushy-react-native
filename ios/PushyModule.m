@@ -170,6 +170,16 @@ RCT_EXPORT_METHOD(notify:(NSString *)title message:(NSString *)message)
     });
 }
 
+RCT_EXPORT_METHOD(handleNotify:(RCTResponseSenderBlock)callback)
+{
+   dispatch_sync(dispatch_get_main_queue(), ^{
+        callback(@[[NSNull null]]);
+
+        // Reset badge number
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    });
+}
+
 RCT_EXPORT_METHOD(setBadge:(nonnull NSNumber *)badge)
 {
     // Set app badge number
